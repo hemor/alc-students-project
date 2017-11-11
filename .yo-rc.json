@@ -1,0 +1,12 @@
+{
+  "generator-men-api": {
+    "folders": {
+      "controller": "src/controllers",
+      "model": "src/database/models",
+      "seeder": "src/database/seeders",
+      "middleware": "src/middlewares",
+      "route": "src/routes",
+      "validator": "src/validators"
+    }
+  }
+}
