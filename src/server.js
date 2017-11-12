@@ -66,7 +66,7 @@ mongoose.connect(dbConnectionString, dbOptions, function (err) {
 
 // Start express server
 function startServer() {
-  app.listen(config.app.port);
+  app.listen(process.env.PORT || config.app.port);
   console.log(`Server started on ${config.app.host}:${config.app.port}`);
 }
 
