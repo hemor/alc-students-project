@@ -17,7 +17,7 @@ let errorRoutes = require('./middlewares/error-routes');
 // Initialize express app
 let app = express();
 
-// Don't write access logs when running tests
+// Don't write access logs except during development
 if (config.util.getEnv('NODE_ENV') === 'development') {
   app.use(logger.accessLog);
 }
@@ -38,7 +38,7 @@ app.use('*', function(req, res) {
 });
 
 
-// Don't write error logs when running tests
+// Don't write error logs except during development
 if (config.util.getEnv('NODE_ENV') === 'development') {
   app.use(logger.errorLog);
 }
