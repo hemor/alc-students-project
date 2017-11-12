@@ -92,7 +92,7 @@
     },
     created () {
       this.api = axios.create({
-        baseURL: 'http://localhost:3000/api/students',
+        baseURL: '/api/students',
         timeout: 2000
       })
     },
