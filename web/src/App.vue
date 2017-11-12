@@ -1,81 +1,63 @@
 <template>
   <v-app>
     <v-navigation-drawer
-      persistent
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      v-model="drawer"
-      enable-resize-watcher
-      app
+      temporary
+      v-model="mobileNav"
     >
       <v-list>
         <v-list-tile
-          value="true"
-          v-for="(item, i) in items"
+          v-for="(menu, i) in menuItems"
           :key="i"
+          :to="{ name: menu.route }"
+          exact
         >
           <v-list-tile-action>
-            <v-icon v-html="item.icon"></v-icon>
+            <v-icon>{{ menu.icon }}</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title v-text="item.title"></v-list-tile-title>
+            <v-list-tile-title>{{ menu.title }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar fixed app :clipped-left="clipped">
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon v-html="miniVariant ? 'chevron_right' : 'chevron_left'"></v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>web</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>remove</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title"></v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>menu</v-icon>
-      </v-btn>
-    </v-toolbar>
-    <main>
-      <v-content>
-        <v-container fluid>
-          <v-slide-y-transition mode="out-in">
-            <v-layout column align-center>
-              <img src="/static/v.png" alt="Vuetify.js" class="mb-5">
-              <blockquote>
-                &#8220;First, solve the problem. Then, write the code.&#8221;
-                <footer>
-                  <small>
-                    <em>&mdash;John Johnson</em>
-                  </small>
-                </footer>
-              </blockquote>
-            </v-layout>
-          </v-slide-y-transition>
-        </v-container>
-      </v-content>
-    </main>
-    <v-navigation-drawer
-      temporary
-      :right="right"
-      v-model="rightDrawer"
-      app
+    <v-toolbar
+      dense
+      dark
+      fixed
+      color="primary"
     >
-      <v-list>
-        <v-list-tile @click="right = !right">
-          <v-list-tile-action>
-            <v-icon>compare_arrows</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
-    <v-footer :fixed="fixed" app>
-      <span>&copy; 2017</span>
+      <v-toolbar-side-icon @click.stop="mobileNav = !mobileNav" class="hidden-sm-and-up"></v-toolbar-side-icon>
+      <v-toolbar-title>
+        <router-link :to="{ name: 'Home' }" tag="span">ALC Students Project</router-link>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-xs-only">
+        <v-btn
+          flat
+          v-for="(menu, i) in menuItems"
+          :key="i"
+          :to="{ name: menu.route }"
+          exact
+        >
+          <v-icon>{{ menu.icon }}</v-icon>
+          &nbsp;
+          {{ menu.title }}
+        </v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
+    <main class="mt-5">
+      <router-view></router-view>
+    </main>
+    <v-footer
+      color="primary"
+      class="pa-3"
+      dark
+    >
+      <v-spacer></v-spacer>
+      <div>
+        Designed &amp; Developed by <a href="http://www.twitter.com/emmy_rald" target="_blank">Emmanuel Akinpelu</a>
+      </div>
+      <v-spacer></v-spacer>
     </v-footer>
   </v-app>
 </template>
@@ -84,19 +66,40 @@
   export default {
     data () {
       return {
-        clipped: false,
-        drawer: true,
-        fixed: false,
-        items: [{
-          icon: 'bubble_chart',
-          title: 'Inspire'
-        }],
-        miniVariant: false,
-        right: true,
-        rightDrawer: false,
-        title: 'Vuetify.js'
+        mobileNav: false,
+        menuItems: [
+          {
+            icon: 'home',
+            title: 'Home',
+            route: 'Home'
+          },
+          {
+            icon: 'people',
+            title: 'View Students',
+            route: 'ViewStudents'
+          },
+          {
+            icon: 'person_add',
+            title: 'Create Student',
+            route: 'CreateStudent'
+          }
+        ]
       }
     }
   }
 
 </script>
+
+<style scoped>
+  .toolbar__title {
+    cursor: pointer;
+  }
+  .footer {
+    color: #fff;
+  }
+  .footer a {
+    text-decoration: none;
+    color: #ccc;
+    font-weight: bold;
+  }
+</style>

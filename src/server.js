@@ -1,5 +1,6 @@
 'use strict';
 
+let path = require('path');
 let express = require('express');
 let bodyParser = require('body-parser');
 let config = require('config');
@@ -31,7 +32,10 @@ app.use(bodyParser.urlencoded({ extended: false }));     // Parse form-data
 
 // Add routes to express server
 app.use('/api', routes);
-app.use('*', errorRoutes.pageNotFound);
+app.use('/static', express.static(path.join(__dirname, '..', 'web', 'dist', 'static')));
+app.use('*', function(req, res) {
+  res.sendFile(path.join(__dirname, '..', 'web', 'dist', 'index.html'));
+});
 
 
 // Don't write error logs when running tests

@@ -4,6 +4,7 @@ nbproject
 .idea
 .node_history
 .vscode
+logs
 
 node_modules
 config/production.json

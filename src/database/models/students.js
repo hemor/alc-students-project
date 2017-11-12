@@ -42,6 +42,10 @@ let StudentsSchema = new mongoose.Schema({
   level: {
     type: Number,
     required: [100, 200, 300, 400, 500, 600]
+  },
+  createdAt: {
+    type: Date,
+    default: new Date()
   }
 });
 

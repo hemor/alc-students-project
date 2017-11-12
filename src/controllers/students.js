@@ -6,7 +6,7 @@ let Students = require(path.relative(__dirname, 'src/database/models')).students
 
 
 function getAll(req, res) {
-  Students.find({}, function(err, students) {
+  Students.find({}, null, {sort: '-createdAt'}, function(err, students) {
     if (err) {
       return res.status(500).json({
         ok: false,
