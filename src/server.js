@@ -32,9 +32,9 @@ app.use(bodyParser.urlencoded({ extended: false }));     // Parse form-data
 
 // Add routes to express server
 app.use('/api', routes);
-app.use('/static', express.static(path.resolve('web/dist/static')));
+app.use('/static', express.static(path.join(__dirname, '../web/dist/static')));
 app.use('*', function(req, res) {
-  res.sendFile(path.resolve('web/dist/index.html'));
+  res.sendFile(path.join(__dirname, '../web/dist', 'index.html'));
 });
 
 
