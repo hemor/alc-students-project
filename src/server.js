@@ -43,7 +43,7 @@ if (config.util.getEnv('NODE_ENV') !== 'test') {
   app.use(logger.errorLog);
 }
 
-let dbConnectionString = `mongodb://${config.db.host}:${config.db.port}/${config.db.database}`;
+let dbConnectionString = process.env.MONGODB_URI || `mongodb://${config.db.host}:${config.db.port}/${config.db.database}`;
 let dbOptions = { useMongoClient: true };
 if (config.db.user && config.db.pass) {
   dbOptions['user'] = config.db.user;
