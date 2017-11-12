@@ -50,6 +50,7 @@ if (config.db.user && config.db.pass) {
   }
 }
 
+mongoose.Promise = global.Promise;
 mongoose.connect(dbConnectionString, dbOptions, function (err) {
   if (err) {
     console.error(err.message);
