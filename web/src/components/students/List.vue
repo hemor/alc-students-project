@@ -38,7 +38,7 @@
                   View
                 </div>
               </v-btn>
-              <v-btn class="ml-0" color="info" flat>
+              <v-btn class="ml-0" color="info" flat :to="{ name: 'EditStudent', params: { id: student._id }}">
                 <v-icon>edit</v-icon>
                 <div>
                   &nbsp;
