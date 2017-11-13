@@ -184,7 +184,7 @@
           ]
         },
         isUpdated: false,
-        loading: false
+        loading: true
       }
     },
     created () {
@@ -198,10 +198,12 @@
         .then(response => {
           this.student = response.data.data
           this.parseDate()
+          this.loading = false
         })
         .catch(err => {
           if (err) {
             this.student = null
+            this.loading = false
           }
         })
     },
