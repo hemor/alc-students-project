@@ -32,10 +32,13 @@ app.use(bodyParser.urlencoded({ extended: false }));     // Parse form-data
 
 // Add routes to express server
 app.use('/api', routes);
-app.use('/static', express.static(path.join(__dirname, '..', 'web', 'dist', 'static')));
-app.use('*', function(req, res) {
-  res.sendFile(path.join(__dirname, '..', 'web', 'dist', 'index.html'));
-});
+
+if (config.util.getEnv('NODE_ENV') === 'production') {
+  app.use('/static', express.static(path.join(__dirname, '..', 'web', 'dist', 'static')));
+  app.use('*', function(req, res) {
+    res.sendFile(path.join(__dirname, '..', 'web', 'dist', 'index.html'));
+  });
+}
 
 
 // Don't write error logs except during development
